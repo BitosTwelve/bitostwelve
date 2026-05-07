@@ -8,6 +8,14 @@
 
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="BTSLOGO.png">
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
             --brand-red: #ff0000;
@@ -19,14 +27,24 @@
 
         body {
             margin: 0;
-            font-family: 'Arial Black', Gadget, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--dark);
             color: white;
             overflow-x: hidden;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('BTSLOGO.png');
+            /* Dark Caribbean sunset vibe */
+            background-image: radial-gradient(circle at 50% 0%, rgba(130, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 70%), url('principal.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            margin-top: 0;
         }
 
         /* --- PANTALLA DE LOADING ACTUALIZADA --- */
@@ -54,11 +72,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('principal.png');
+            background-image: radial-gradient(circle at 50% 0%, rgba(130, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 70%), url('principal.png');
             background-size: cover;
             background-position: center;
             filter: blur(8px);
-            opacity: 0.6;
+            opacity: 1;
             z-index: -1;
             animation: backgroundZoom 10s infinite alternate ease-in-out;
         }
@@ -142,6 +160,18 @@
             }
         }
 
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* --- CONTENIDO PRINCIPAL --- */
         .wrapper {
             max-width: 600px;
@@ -162,25 +192,83 @@
         }
 
         .intro-box {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 25px;
+            background: rgba(15, 15, 15, 0.6);
+            padding: 30px 25px;
             border-radius: 25px;
             border: 1px solid rgba(197, 160, 89, 0.3);
-            backdrop-filter: blur(10px);
-            margin-bottom: 30px;
+            border-top: 2px solid var(--brand-red);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            margin-bottom: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .intro-box:hover {
+            border-color: var(--brand-gold);
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .accordion {
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            margin-bottom: 0 !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: transform 0.4s ease;
+            color: var(--brand-gold);
+            font-family: sans-serif;
+            margin-left: 10px;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .accordion.active .accordion-content {
+            max-height: 800px;
+            opacity: 1;
+            margin-top: 25px;
+        }
+
+        @keyframes shineText {
+            to {
+                background-position: -200% center;
+            }
         }
 
         h2 {
-            color: var(--brand-gold);
-            text-transform: uppercase;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             margin-top: 0;
+            background: linear-gradient(to right, var(--brand-gold) 0%, var(--brand-red) 50%, var(--brand-gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            font-weight: 700;
+            animation: shineText 4s linear infinite;
         }
 
         p {
-            line-height: 1.6;
-            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.7;
             font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* --- VENTANA DE MENÚ (OVERLAY) --- */
@@ -190,22 +278,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                url('fondo23.jpeg');
+            background: radial-gradient(circle at 50% 0%, rgba(130, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 70%), url('principal.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             z-index: 10000;
-            display: none;
             overflow-y: auto;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             padding: 60px 20px 100px 20px;
             box-sizing: border-box;
-            animation: slideUp 0.4s ease;
             font-family: sans-serif;
             color: var(--white);
+            transform: translateY(100%);
+            visibility: hidden;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0.5s;
+        }
+
+        #seccion-menu.active {
+            transform: translateY(0);
+            visibility: visible;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s 0s;
         }
 
         /* Personaliza la barrita de scroll para que sea color Bitos Twelve (Dorado) */
@@ -216,16 +310,6 @@
         #seccion-menu::-webkit-scrollbar-thumb {
             background: var(--brand-gold);
             border-radius: 10px;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-
-            to {
-                transform: translateY(0);
-            }
         }
 
         .btn-cerrar {
@@ -310,10 +394,26 @@
 
         /* --- BOTONES --- */
         .btn-menu {
-            background: var(--brand-gold) !important;
+            background: linear-gradient(45deg, var(--brand-gold), #e8c988) !important;
             color: var(--dark) !important;
-            border: 2px solid var(--brand-gold);
+            border: none;
             cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            animation: pulseGlow 2.5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+                transform: scale(1);
+            }
+
+            100% {
+                box-shadow: 0 0 30px rgba(197, 160, 89, 0.8), 0 0 15px rgba(255, 0, 0, 0.4);
+                transform: scale(1.02);
+            }
         }
 
         .map-container {
@@ -435,6 +535,20 @@
             border: 1px solid rgba(255, 0, 0, 0.5);
         }
 
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(197, 160, 89, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+            }
+        }
+
         .links-container {
             display: flex;
             flex-direction: column;
@@ -450,11 +564,12 @@
             border-radius: 18px;
             text-decoration: none;
             color: white;
-            font-weight: bold;
+            font-weight: 800;
             text-transform: uppercase;
             transition: 0.3s;
-            font-family: 'Arial Black', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             border: none;
+            font-size: 1.1rem;
         }
 
         .btn-insta {
@@ -531,6 +646,26 @@
         }
 
         .add-btn:active {
+            transform: scale(0.9);
+        }
+
+        .add-btn-red {
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .add-btn-red:active {
             transform: scale(0.9);
         }
 
@@ -620,6 +755,159 @@
             letter-spacing: 2px;
             opacity: 0.8;
         }
+
+        .category-card {
+            background: rgba(15, 15, 15, 0.6);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-left: 6px solid var(--brand-gold);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .category-card:hover {
+            transform: scale(1.02) translateY(-2px);
+            background: rgba(197, 160, 89, 0.1);
+            border-color: rgba(197, 160, 89, 0.5);
+            border-left: 6px solid var(--brand-gold);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #seccion-menu h3 {
+            background: linear-gradient(to right, var(--brand-gold) 0%, var(--brand-red) 50%, var(--brand-gold) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            margin-top: 35px;
+            text-transform: uppercase;
+            animation: shineText 4s linear infinite;
+        }
+
+        .variant-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            text-align: left;
+        }
+
+        .option-chip {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--brand-gold);
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .option-chip.selected {
+            background: var(--brand-gold);
+            color: var(--dark);
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 10005;
+            display: none;
+            /* Initially hidden */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-menu {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid var(--brand-gold);
+            border-radius: 20px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 10005;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            animation: slideInUp 0.3s ease forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .whatsapp-option {
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .whatsapp-option:hover {
+            background: var(--brand-gold);
+            color: var(--dark);
+            transform: translateX(5px);
+        }
+
+        .whatsapp-option img {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 
@@ -627,8 +915,11 @@
 
     <div id="loader-wrapper">
         <img src="BTSLOGO.png" alt="Logo Bitos Twelve" class="loader-logo" loading="lazy">
-        <button class="enter-btn" onclick="startExperience()">ENTRAR</button>
-        <div class="vibra-text">LA VIBRA, LA POSITIVA</div>
+        <div id="loading-counter"
+            style="color: var(--brand-gold); font-family: 'Oswald', sans-serif; font-size: 3rem; margin-bottom: 20px; text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);">
+            0%</div>
+        <button class="enter-btn" style="display: none; opacity: 0;" onclick="startExperience()">ENTRAR</button>
+        <div class="vibra-text" style="display: none; opacity: 0;">LA VIBRA, LA POSITIVA</div>
     </div>
 
     <!-- VENTANA EMERGENTE DEL MENÚ -->
@@ -647,420 +938,208 @@
         <div style="max-width: 600px; margin: 0 auto;">
 
             <!-- SECCIÓN: COMBOS TRADICIONALES -->
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">
-                Combos Bitos</h3>
+            <h3>Combos Bitos</h3>
 
-            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;">
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>6 Bitos</span><span>₡2,500</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">4 patacones,
-                            salsas de la casa y
-                            chilera.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('6 Bitos', 2500, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
+            <div class="category-card" onclick="showOptions('bitos')">
+                <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                <div style="flex-grow: 1;">
+                    <div style="color: white; font-weight: bold; font-size: 1.1rem;">Combos de Bitos</div>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">6, 8, 12, 16 y 22
+                        unidades.</p>
                 </div>
-
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>8 Bitos</span><span>₡3,000</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">4 patacones,
-                            salsas de la casa y
-                            chilera.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('8 Bitos', 3000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>12 Bitos</span><span>₡5,000</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">6 patacones,
-                            salsas de la casa y
-                            chilera.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('12 Bitos', 5000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>16 Bitos</span><span>₡7,500</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">8 patacones,
-                            salsas de la casa y
-                            chilera.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('16 Bitos', 7500, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>22 Bitos</span><span>₡10,000</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">10 patacones,
-                            salsas de la casa y
-                            chilera.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('22 Bitos', 10000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
+                <div style="position: relative;">
+                    <div class="qty-badge" id="badge-bitos">0</div>
+                    <div
+                        style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        +</div>
                 </div>
             </div>
 
-            <!-- SECCIÓN: MAD FRIES -->
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">
-                Cajas Bitos</h3>
+            <!-- SECCIÓN: CAJAS BITOS -->
+            <h3>Cajas Bitos</h3>
 
-            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 50px;">
-                <!-- Mini Mad Fries -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-red);">
-                    <img src="MadFries.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>Caja Pequeña</span><span>₡3,750</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Caja pequeña con
-                            cama de papas, 4u
-                            de Bitos, salsas de la casa y queso cheddar.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Caja Pequeña', 3750, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
+            <div class="category-card" onclick="showOptions('cajas')">
+                <img src="MadFries.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                <div style="flex-grow: 1;">
+                    <div style="color: white; font-weight: bold; font-size: 1.1rem;">Cajas de Mad Fries</div>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Pequeña, Mediana y
+                        Grande.</p>
                 </div>
-
-                <!-- Mad Fries XL -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-red);">
-                    <img src="MadFries.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>Caja Mediana</span><span>₡5,500</span>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Caja mediana con
-                            4 patacones, cama
-                            de papas, 6u de Bitos y salsas de la casa.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Caja Mediana', 5500, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
+                <div style="position: relative;">
+                    <div class="qty-badge" id="badge-cajas">0</div>
+                    <div
+                        style="background: var(--brand-red); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        +</div>
                 </div>
+            </div>
 
-                <!-- Mad Fries 2XL -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-red);">
-                    <img src="MadFries.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>Caja Grande</span><span>₡7,500</span>
+            <!-- SECCIÓN: ALITAS Y MUSLITOS -->
+            <div>
+                <h3>Alitas & Muslitos</h3>
+
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <!-- Alitas -->
+                    <div class="category-card" onclick="showOptions('alitas')">
+                        <img src="alitas.png"
+                            style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                        <div style="flex-grow: 1;">
+                            <div style="color: white; font-weight: bold; font-size: 1.1rem;">Alitas Caribeñas</div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">5, 7, 10 y
+                                15 unidades.</p>
                         </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Caja grande con
-                            6 patacones, cama de
-                            papas, 8u de Bitos y salsas de la casa.</p>
+                        <div style="position: relative;">
+                            <div class="qty-badge" id="badge-alitas">0</div>
+                            <div
+                                style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                +</div>
+                        </div>
                     </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Caja Grande', 7500, this)">+</button>
-                        <span class="qty-badge">0</span>
+
+                    <!-- Muslitos -->
+                    <div class="category-card" onclick="showOptions('muslitos')">
+                        <img src="muslitos.jpg"
+                            style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                        <div style="flex-grow: 1;">
+                            <div style="color: white; font-weight: bold; font-size: 1.1rem;">Muslitos de Pollo</div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">6 y 12
+                                unidades.</p>
+                        </div>
+                        <div style="position: relative;">
+                            <div class="qty-badge" id="badge-muslitos">0</div>
+                            <div
+                                style="background: var(--brand-red); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                +</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- SECCIÓN: ALITAS Y MUSLITOS -->
-        <div>
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">
-                Alitas & Muslitos</h3>
+            <!-- ESPECIALIDADES -->
+            <div>
+                <h3>ESPECIALIDADES</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <!-- Big PateCon -->
+                    <div
+                        style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); border-left: 6px solid var(--brand-gold); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+                        <img src="BigPatecon.jpeg" alt="Big PateCon"
+                            style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
+                            loading="lazy">
+                        <div style="flex-grow: 1;">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Big
+                                    PateCon</span><span style="color: var(--brand-gold);">₡5,000</span></div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-top: 5px;">Doble
+                                patacón
+                                grande, frijoles, 5u
+                                Bitos, tocineta, aguacate y mozzarella.</p>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="add-btn" onclick="addToOrder('Big PateCon', 5000, this)">+</button>
+                            <span class="qty-badge">0</span>
+                        </div>
+                    </div>
+                    <!-- Nachibitos -->
+                    <div
+                        style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); border-left: 6px solid var(--brand-gold); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+                        <img src="Nachibitos.jpeg" alt="Nachibitos"
+                            style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
+                            loading="lazy">
+                        <div style="flex-grow: 1;">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                                <span>Nachibitos
+                                    (APROX 1KG)</span><span style="color: var(--brand-gold);">₡5,000</span></div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-top: 5px;">Tortillas,
+                                Bitos en trozos, queso,
+                                frijoles, pico de gallo y aguacate.</p>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="add-btn-red" onclick="addToOrder('Nachibitos', 5000, this)">+</button>
+                            <span class="qty-badge">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SECCIÓN: ACOMPAÑAMIENTOS -->
+            <h3>Acompañamientos</h3>
             <div style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Alitas -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-red);">
-                    <img src="alitas.png" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>Alitas</span>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.95rem; color: rgba(255, 255, 255, 0.7);
-                            margin-top: 8px;">
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>5u:</strong> ₡1,800
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Alitas (5u)', 1800, this)">+</button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>7u:</strong> ₡2,600
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Alitas (7u)', 2600, this)">+</button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>10u:</strong> ₡3,800
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Alitas (10u)', 3800, this)">+</button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>15u:</strong> ₡5,800
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Alitas (15u)', 5800, this)">+</button>
-                            </div>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 8px;">
-                            *Incluye patacones, salsas de la casa y chilera.</p>
-                    </div>
-                </div>
-
-                <!-- Muslitos -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-red);">
-                    <img src="muslitos.jpg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div
-                            style="display: flex; justify-content: space-between; color: white; font-weight: bold; font-size: 1.1rem;">
-                            <span>Muslitos</span><span>A elegir: BBQ o Buffalo</span>
-                        </div>
-                        <div
-                            style="display: flex; justify-content: space-between; color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; margin-top: 8px;">
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>6u:</strong> ₡2,800
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Muslitos (6u)', 2800, this)">+</button>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 5px;">
-                                <strong>12u:</strong> ₡5,500
-                                <button class="add-btn" style="width: 22px; height: 22px; font-size: 0.8rem;"
-                                    onclick="addToOrder('Muslitos (12u)', 5500, this)">+</button>
-                            </div>
-                        </div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 8px;">
-                            *Incluye patacones, salsas de la casa y chilera.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ESPECIALIDADES -->
-        <div>
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px;">
-                ESPECIALIDADES</h3>
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Big PateCon -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="BigPatecon.jpeg" alt="Big PateCon"
-                        style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Big
-                                PateCon</span><span style="color: var(--brand-gold);">₡5,000</span></div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-top: 5px;">Doble patacón
-                            grande, frijoles, 5u
-                            Bitos, tocineta, aguacate y mozzarella.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Big PateCon', 5000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-                <!-- Nachibitos -->
-                <div
-                    style="background: var(--dark); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--brand-gold);">
-                    <img src="Nachibitos.jpeg" alt="Nachibitos"
-                        style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
-                        loading="lazy">
-                    <div style="flex-grow: 1;">
-                        <div style="display: flex; justify-content: space-between; font-weight: bold;"><span>Nachibitos
-                                (APROX 1KG)</span><span style="color: var(--brand-gold);">₡5,000</span></div>
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-top: 5px;">Tortillas,
-                            Bitos en trozos, queso,
-                            frijoles, pico de gallo y aguacate.</p>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Nachibitos', 5000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- SECCIÓN: ACOMPAÑAMIENTOS -->
-        <div style="margin-top: 35px;">
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase;">
-                Acompañamientos</h3>
-            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-
                 <!-- Papas -->
-                <div
-                    style="background: var(--dark); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
-                    <img src="papas.png" alt="Papas"
-                        style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
-                        loading="lazy">
+                <div class="category-card" onclick="showOptions('papas')">
+                    <img src="papas.png" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
                     <div style="flex-grow: 1;">
-                        <div style="display: flex; justify-content: space-between; color: white;">
-                            <span>Papas Pequeñas</span>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="color: var(--brand-gold); font-weight: bold;">₡1,200</span>
-                                <button class="add-btn" style="width: 25px; height: 25px; font-size: 0.9rem;"
-                                    onclick="addToOrder('Papas Pequeñas', 1200, this)">+</button>
-                            </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; color: white; margin-top: 5px;">
-                            <span>Papas Grandes</span>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="color: var(--brand-gold); font-weight: bold;">₡2,500</span>
-                                <button class="add-btn" style="width: 25px; height: 25px; font-size: 0.9rem;"
-                                    onclick="addToOrder('Papas Grandes', 2500, this)">+</button>
-                            </div>
-                        </div>
+                        <div style="color: white; font-weight: bold; font-size: 1.1rem;">Papas Fritas</div>
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Pequeñas y
+                            Grandes.</p>
+                    </div>
+                    <div style="position: relative;">
+                        <div class="qty-badge" id="badge-papas">0</div>
+                        <div
+                            style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            +</div>
                     </div>
                 </div>
 
                 <!-- Patacones -->
-                <div
-                    style="background: var(--dark); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
-                    <img src="patacones.jpg" alt="Patacones"
-                        style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
-                        loading="lazy">
+                <div class="category-card" onclick="showOptions('patacones')">
+                    <img src="patacones.jpg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
                     <div style="flex-grow: 1;">
-                        <div style="display: flex; justify-content: space-between; color: white;">
-                            <span>Patacones (10u)</span>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="color: var(--brand-gold); font-weight: bold;">₡1,100</span>
-                                <button class="add-btn" style="width: 25px; height: 25px; font-size: 0.9rem;"
-                                    onclick="addToOrder('Patacones (10u)', 1110, this)">+</button>
-                            </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; color: white; margin-top: 5px;">
-                            <span>Patacones (20u)</span>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="color: var(--brand-gold); font-weight: bold;">₡1,700</span>
-                                <button class="add-btn" style="width: 25px; height: 25px; font-size: 0.9rem;"
-                                    onclick="addToOrder('Patacones (20u)', 1700, this)">+</button>
-                            </div>
-                        </div>
+                        <div style="color: white; font-weight: bold; font-size: 1.1rem;">Patacones Extra</div>
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">10 y 20
+                            unidades.</p>
+                    </div>
+                    <div style="position: relative;">
+                        <div class="qty-badge" id="badge-patacones">0</div>
+                        <div
+                            style="background: var(--brand-red); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            +</div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
-        <!-- SECCIÓN: REFRESCOS -->
-        <div style="margin-top: 35px; margin-bottom: 50px;">
-            <h3
-                style="color: var(--brand-gold); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase;">
-                Refrescos</h3>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- SECCIÓN: REFRESCOS -->
+            <div style="margin-top: 35px; margin-bottom: 50px;">
+                <h3>Refrescos</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
 
-                <div
-                    style="background: var(--dark); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
-                    <img src="gaseosa.jpeg" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
-                    <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: bold;">Gaseosas 600ml</span>
-                        <span style="color: var(--brand-gold);">₡1,200</span>
+                    <div
+                        style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+                        <img src="gaseosa.jpeg"
+                            style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                        <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold;">Gaseosas 600ml</span>
+                            <span style="color: var(--brand-gold);">₡1,200</span>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="add-btn" onclick="addToOrder('Gaseosa 600ml', 1200, this)">+</button>
+                            <span class="qty-badge">0</span>
+                        </div>
                     </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Gaseosa 600ml', 1200, this)">+</button>
-                        <span class="qty-badge">0</span>
+
+                    <div
+                        style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+                        <img src="fuzete.jpg" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                        <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold;">Fuze Tea 500ml</span>
+                            <span style="color: var(--brand-gold);">₡1,000</span>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="add-btn-red" onclick="addToOrder('Fuze Tea 500ml', 1000, this)">+</button>
+                            <span class="qty-badge">0</span>
+                        </div>
                     </div>
+
+                    <div
+                        style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+                        <img src="hic.png" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                        <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold;">Jugos Hi-C</span>
+                            <span style="color: var(--brand-gold);">₡500</span>
+                        </div>
+                        <div style="position: relative;">
+                            <button class="add-btn" onclick="addToOrder('Jugo Hi-C', 500, this)">+</button>
+                            <span class="qty-badge">0</span>
+                        </div>
+                    </div>
+
                 </div>
-
-                <div
-                    style="background: var(--dark); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
-                    <img src="fuzete.jpg" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
-                    <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: bold;">Fuze Tea 500ml</span>
-                        <span style="color: var(--brand-gold);">₡1,000</span>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Fuze Tea 500ml', 1000, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-
-                <div
-                    style="background: var(--dark); padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
-                    <img src="hic.png" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
-                    <div style="flex-grow: 1; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: bold;">Jugos Hi-C</span>
-                        <span style="color: var(--brand-gold);">₡500</span>
-                    </div>
-                    <div style="position: relative;">
-                        <button class="add-btn" onclick="addToOrder('Jugo Hi-C', 500, this)">+</button>
-                        <span class="qty-badge">0</span>
-                    </div>
-                </div>
-
             </div>
-        </div>
-        <!-- OPCIONES DE PEDIDO POR SUCURSAL -->
-        <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
-            <p
-                style="font-size: 0.9rem; color: #fff; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">
-                ¿A cuál sucursal quieres pedir?</p>
-
-            <!-- Botón Santo Domingo -->
-            <a href="https://wa.me/50670698429" class="btn btn-wa"
-                style="width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20">
-                SANTO DOMINGO
-            </a>
-
-            <!-- Botón Heredia Centro -->
-            <a href="https://wa.me/50670030697" class="btn btn-wa"
-                style="width: 100%; max-width: 400px; background: #128C7E; color: white; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20">
-                HEREDIA CENTRO
-            </a>
         </div>
     </section>
 
@@ -1072,113 +1151,121 @@
         </header>
 
         <section class="intro-box">
-            <h2>¡El Auténtico Pollo Frito Caribeño!</h2>
-            <p>En <strong>Bitos Twelve</strong> traemos el auténtico pollo frito al estilo caribeño marinado con
-                especias de la
-                costa. Vení ya probar este pedacito de Limón.
-            <p style="color: var(--brand-gold); font-weight: bold; margin-top: 15px; letter-spacing: 2px;">¡LA VIBRA, LA
-                POSITIVA!</p>
+            <h2>¡Un viaje a Limón en cada bocado!</h2>
+            <p>En <strong>Bitos Twelve</strong>, elevamos el concepto del pollo frito. Cada bocado es un tributo a nuestras raíces, elaborado con el profesionalismo que usted merece y el sabor que solo el Caribe puede ofrecer.</p>
+            <p style="color: var(--brand-gold); font-weight: bold; margin-top: 15px; letter-spacing: 2px;">Sabor que enamora • Pura esencia caribeña🌴🍗✨</p>
         </section>
 
-        <section class="intro-box">
-            <h2 style="margin-bottom: 25px;">Horario: Santo Domingo</h2>
-            <div class="horario-grid">
-                <div class="day-card">
-                    <span class="day-label">Lunes a Sábado</span>
-                    <span class="day-time">12:00pm - 10:30pm</span>
-                </div>
-                <div class="day-card">
-                    <span class="day-label">Domingos</span>
-                    <span class="day-time">12:00pm - 9:00pm</span>
+        <section class="intro-box"
+            style="text-align: center; padding: 35px 25px; margin-bottom: 35px; border-top: 2px solid var(--brand-gold);">
+            <h2 style="font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 1px;">¿Listo para ordenar?</h2>
+            <p style="margin-bottom: 25px; font-size: 0.95rem; opacity: 0.9;">Descubre todos nuestros combos, cajas
+                de Mad Fries, alitas y más.</p>
+
+            <!-- Botón del menú -->
+            <button class="btn btn-menu" onclick="toggleMenu()"
+                style="background: linear-gradient(45deg, var(--brand-red), var(--brand-gold)); border: none; color: white; font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; padding: 20px; border-radius: 50px; animation: pulseGlow 2s infinite ease-in-out; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); width: 100%; justify-content: center;">
+                <img src="https://cdn-icons-png.flaticon.com/512/706/706164.png" width="25"
+                    style="filter: invert(1);">
+                VER MENÚ
+            </button>
+        </section>
+
+        <section class="intro-box accordion" onclick="toggleAccordion(this)">
+            <h2 class="accordion-header">Horario: Santo Domingo <span class="accordion-icon">▼</span></h2>
+            <div class="accordion-content">
+                <div class="horario-grid">
+                    <div class="day-card">
+                        <span class="day-label">Lunes a Sábado</span>
+                        <span class="day-time">12:00pm - 10:30pm</span>
+                    </div>
+                    <div class="day-card">
+                        <span class="day-label">Domingos</span>
+                        <span class="day-time">12:00pm - 9:00pm</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="intro-box">
-            <h2 style="margin-bottom: 25px;">Horario: Heredia Centro</h2>
-            <div class="horario-grid">
-                <div class="day-card">
-                    <span class="day-label">Lunes a Sábado</span>
-                    <span class="day-time">11:30am - 10:30pm</span>
-                </div>
-                <div class="day-card">
-                    <span class="day-label">Domingos</span>
-                    <span class="day-time">12:00pm - 9:00pm</span>
+        <section class="intro-box accordion" onclick="toggleAccordion(this)">
+            <h2 class="accordion-header">Horario: Heredia Centro <span class="accordion-icon">▼</span></h2>
+            <div class="accordion-content">
+                <div class="horario-grid">
+                    <div class="day-card">
+                        <span class="day-label">Lunes a Sábado</span>
+                        <span class="day-time">11:30am - 10:30pm</span>
+                    </div>
+                    <div class="day-card">
+                        <span class="day-label">Domingos</span>
+                        <span class="day-time">5:00pm - 9:00pm</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="intro-box">
-            <h2>¿Dónde estamos?</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+        <section class="intro-box accordion" onclick="toggleAccordion(this)">
+            <h2 class="accordion-header">¿Dónde estamos? <span class="accordion-icon">▼</span></h2>
+            <div class="accordion-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
 
-                <!-- Sucursal Santo Domingo -->
-                <div class="map-container" style="margin-top: 0;">
-                    <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">SANTO DOMINGO</p>
-                    <a href="https://maps.app.goo.gl/zNzok8ZMiZJy3Ez38" target="_blank" style="text-decoration: none;">
-                        <img src="UBI.jpg" alt="Ubicación Bitos Santo Domingo" class="map-img" style="height: 150px;">
-                        <span class="btn-map-overlay" style="font-size: 0.8rem; padding: 8px;">📍 VER MAPA</span>
-                    </a>
+                    <!-- Sucursal Santo Domingo -->
+                    <div class="map-container" style="margin-top: 0;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">SANTO DOMINGO</p>
+                        <a href="https://maps.app.goo.gl/zNzok8ZMiZJy3Ez38" target="_blank"
+                            style="text-decoration: none;">
+                            <img src="UBI.jpg" alt="Ubicación Bitos Santo Domingo" class="map-img"
+                                style="height: 150px;">
+                            <span class="btn-map-overlay" style="font-size: 0.8rem; padding: 8px;">📍 VER MAPA</span>
+                        </a>
+                    </div>
+
+                    <!-- Sucursal Heredia Centro -->
+                    <div class="map-container" style="margin-top: 0;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">HEREDIA CENTRO</p>
+                        <a href="https://maps.app.goo.gl/JNomQJDRXz8ikCQG6" target="_blank"
+                            style="text-decoration: none;">
+                            <img src="ubi2.png" alt="Ubicación Bitos Heredia Centro" class="map-img"
+                                style="height: 150px;">
+                            <span class="btn-map-overlay"
+                                style="font-size: 0.8rem; padding: 8px; background: var(--brand-gold); color: var(--dark);">📍
+                                VER MAPA</span>
+                        </a>
+                    </div>
+
                 </div>
-
-                <!-- Sucursal Heredia Centro -->
-                <div class="map-container" style="margin-top: 0;">
-                    <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">HEREDIA CENTRO</p>
-                    <a href="https://maps.app.goo.gl/JNomQJDRXz8ikCQG6" target="_blank" style="text-decoration: none;">
-                        <img src="ubi2.png" alt="Ubicación Bitos Heredia Centro" class="map-img" style="height: 150px;">
-                        <span class="btn-map-overlay"
-                            style="font-size: 0.8rem; padding: 8px; background: var(--brand-gold); color: var(--dark);">📍
-                            VER MAPA</span>
-                    </a>
-                </div>
-
             </div>
         </section>
 
         <div class="links-container">
-            <!-- Botón del menú -->
-            <button class="btn btn-menu" onclick="toggleMenu()">
-                <img src="https://cdn-icons-png.flaticon.com/512/706/706164.png" width="25" style="filter: invert(1);">
-                VER MENÚ COMPLETO
-            </button>
 
-            <!-- WhatsApp Bitos Santo Domingo -->
-            <a href="https://wa.me/50670698429" target="_blank" class="btn btn-wa">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="30">
-                <div style="text-align: left; margin-left: 10px;">
-                    <span
-                        style="font-size: 0.7rem; display: block; opacity: 0.9; font-family: sans-serif;">WHATSAPP</span>
-                    <span style="font-size: 1rem;">BITOS TWELVE SANTO DOMINGO</span>
+            <section class="intro-box accordion" onclick="toggleAccordion(this)" style="padding: 25px;">
+                <h2 class="accordion-header" style="font-size: 1.2rem; letter-spacing: 1px;">Síguenos en las Redes <span
+                        class="accordion-icon">▼</span></h2>
+                <div class="accordion-content">
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/bitos_food_point/" target="_blank" class="btn btn-insta"
+                            style="margin-bottom: 0;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="25">
+                            <span style="margin-left: 10px;">INSTAGRAM</span>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@bitosfoodpoint?is_from_webapp=1&sender_device=pc"
+                            target="_blank" class="btn"
+                            style="background: #000000; border: 1px solid #ff0050; margin-bottom: 0;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="25">
+                            <span style="margin-left: 10px;">TIKTOK</span>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/people/BITOS/100063918340839/" target="_blank"
+                            class="btn btn-fb" style="margin-bottom: 0;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="25">
+                            <span style="margin-left: 10px;">FACEBOOK</span>
+                        </a>
+                    </div>
                 </div>
-            </a>
-
-            <!-- WhatsApp Bitos Heredia -->
-            <a href="https://wa.me/50670030697" target="_blank" class="btn btn-wa"
-                style="background: #128C7E; color: white;">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="30">
-                <div style="text-align: left; margin-left: 10px;">
-                    <span
-                        style="font-size: 0.7rem; display: block; opacity: 0.9; font-family: sans-serif;">WHATSAPP</span>
-                    <span style="font-size: 1rem;">BITOS TWELVE HEREDIA (CENTRO)</span>
-                </div>
-            </a>
-
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/bitos_food_point/" target="_blank" class="btn btn-insta">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="25">
-                <span style="margin-left: 10px;">INSTAGRAM</span>
-            </a>
-
-            <a href="https://www.tiktok.com/@bitosfoodpoint?is_from_webapp=1&sender_device=pc" target="_blank"
-                class="btn" style="background: #000000; border: 1px solid #ff0050;">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="25">
-                <span style="margin-left: 10px;">TIKTOK</span>
-            </a>
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/people/BITOS/100063918340839/" target="_blank" class="btn btn-fb">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="25">
-                <span style="margin-left: 10px;">FACEBOOK</span>
-            </a>
+            </section>
         </div>
 
         <footer>BITOS TWELVE</footer>
@@ -1246,35 +1333,193 @@
             style="background: none; border: 1px solid white; color: white; padding: 10px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px;">Cancelar</button>
     </div>
 
+    <div id="info-modal" class="branch-modal">
+        <h2 style="color: white; margin-bottom: 20px;">Datos del Cliente</h2>
+        <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label
+                    style="display: block; color: var(--brand-gold); font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase;">Nombre
+                    Completo</label>
+                <input type="text" id="customer-name" placeholder="Tu nombre"
+                    style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--brand-gold); background: rgba(255,255,255,0.1); color: white; box-sizing: border-box;">
+            </div>
+            <div id="address-container">
+                <label
+                    style="display: block; color: var(--brand-gold); font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase;">Ubicación
+                    para el Envío</label>
+                <button type="button" onclick="getCurrentLocation()" id="btn-location"
+                    style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #25D366; background: rgba(37, 211, 102, 0.1); color: #25D366; cursor: pointer; font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    📍 COMPARTIR MI UBICACIÓN GPS
+                </button>
+                <div id="location-status"
+                    style="font-size: 0.8rem; color: #25D366; margin-top: 5px; display: none; text-align: center;">✅
+                    Ubicación capturada con éxito</div>
+            </div>
+            <button onclick="confirmInfo()"
+                style="background: var(--brand-gold); color: var(--dark); padding: 15px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase;">Continuar</button>
+            <button onclick="closeInfoModal()"
+                style="background: none; border: 1px solid white; color: white; padding: 10px; border-radius: 50px; cursor: pointer;">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="options-modal" class="branch-modal">
+        <div
+            style="width: 100%; max-width: 450px; background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--brand-gold); border-radius: 25px; padding: 25px; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; box-shadow: 0 15px 40px rgba(0,0,0,0.6);">
+            <button onclick="closeOptionsModal()"
+                style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 2.5rem; cursor: pointer; line-height: 1;">&times;</button>
+
+            <img id="option-img" src=""
+                style="width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--brand-gold);">
+            <h2 id="option-title" style="color: white; margin-bottom: 5px; text-align: left; font-size: 1.5rem;"></h2>
+            <p id="option-desc"
+                style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 20px; text-align: left; font-family: sans-serif;">
+            </p>
+
+            <div id="extra-options" style="margin-bottom: 25px; display: none; text-align: left;">
+                <label id="extra-label"
+                    style="display: block; color: var(--brand-gold); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 12px; font-weight: bold; letter-spacing: 1px;"></label>
+                <div id="chips-container" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+            </div>
+
+            <div id="variants-container">
+                <!-- Variantes dinámicas -->
+            </div>
+
+            <button onclick="closeOptionsModal()"
+                style="width: 100%; background: none; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px; border-radius: 50px; cursor: pointer; margin-top: 10px; font-size: 0.9rem;">Cerrar</button>
+        </div>
+    </div>
+
     <script>
+        function toggleAccordion(element) {
+            element.classList.toggle('active');
+        }
+
         function startExperience() {
             const loader = document.getElementById('loader-wrapper');
             const wrapper = document.querySelector('.wrapper');
+            const wppBtn = document.querySelector('.whatsapp-float');
             loader.style.opacity = '0';
             setTimeout(() => {
                 loader.style.display = 'none';
                 wrapper.style.opacity = '1';
+                if (wppBtn) wppBtn.style.display = 'flex';
             }, 800);
         }
 
         function toggleMenu() {
             const menu = document.getElementById('seccion-menu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
+            const wppBtn = document.querySelector('.whatsapp-float');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
                 document.body.style.overflow = 'auto';
+                if (wppBtn) wppBtn.style.display = 'flex';
             } else {
-                menu.style.display = 'block';
+                menu.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                if (wppBtn) wppBtn.style.display = 'none';
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicialización necesaria
+            let count = 0;
+            const counterElement = document.getElementById('loading-counter');
+            const enterBtn = document.querySelector('.enter-btn');
+            const vibraText = document.querySelector('.vibra-text');
+
+            const interval = setInterval(() => {
+                count += Math.floor(Math.random() * 15) + 5;
+                if (count >= 100) {
+                    count = 100;
+                    clearInterval(interval);
+                    if (counterElement) counterElement.style.display = 'none';
+                    if (enterBtn) {
+                        enterBtn.style.display = 'block';
+                        enterBtn.style.animation = 'slideInUp 0.5s ease forwards';
+                    }
+                    if (vibraText) {
+                        vibraText.style.display = 'block';
+                        vibraText.style.animation = 'slideInUp 0.6s ease forwards';
+                    }
+                }
+                if (counterElement) counterElement.innerText = count + '%';
+            }, 120);
         });
 
         // --- LÓGICA DE PEDIDOS ---
         let order = {};
         let totalAmount = 0;
+
+        const productVariants = {
+            'bitos': {
+                name: 'Combos Bitos',
+                desc: 'Incluye patacones, salsas de la casa y chilera.',
+                image: 'Bitos.jpeg',
+                variants: [
+                    { name: '6 Bitos', price: 2500, desc: 'Incluye 4 patacones' },
+                    { name: '8 Bitos', price: 3000, desc: 'Incluye 4 patacones' },
+                    { name: '12 Bitos', price: 5000, desc: 'Incluye 6 patacones' },
+                    { name: '16 Bitos', price: 7500, desc: 'Incluye 8 patacones' },
+                    { name: '22 Bitos', price: 10000, desc: 'Incluye 10 patacones' }
+                ]
+            },
+            'cajas': {
+                name: 'Cajas Bitos',
+                desc: 'Cama de papas, Bitos y salsas.',
+                image: 'MadFries.jpeg',
+                variants: [
+                    { name: 'Caja Pequeña', price: 3750, desc: '4u de Bitos, papas y queso.' },
+                    { name: 'Caja Mediana', price: 5500, desc: '6u de Bitos, papas y 4 patacones.' },
+                    { name: 'Caja Grande', price: 7500, desc: '8u de Bitos, papas y 6 patacones.' }
+                ]
+            },
+            'alitas': {
+                name: 'Alitas',
+                desc: 'Incluye patacones, salsas y chilera.',
+                image: 'alitas.png',
+                variants: [
+                    { name: 'Alitas (5u)', price: 1800 },
+                    { name: 'Alitas (7u)', price: 2600 },
+                    { name: 'Alitas (10u)', price: 3800 },
+                    { name: 'Alitas (15u)', price: 5800 }
+                ],
+                options: {
+                    name: 'Salsa',
+                    values: ['BBQ', 'Búfalo', 'Natural']
+                }
+            },
+            'muslitos': {
+                name: 'Muslitos',
+                desc: 'Incluye patacones, salsas y chilera.',
+                image: 'muslitos.jpg',
+                variants: [
+                    { name: 'Muslitos (6u)', price: 2800 },
+                    { name: 'Muslitos (12u)', price: 5500 }
+                ],
+                options: {
+                    name: 'Salsa',
+                    values: ['BBQ', 'Búfalo']
+                }
+            },
+            'papas': {
+                name: 'Papas Fritas',
+                desc: 'Papas fritas crujientes.',
+                image: 'papas.png',
+                variants: [
+                    { name: 'Papas Pequeñas', price: 1200 },
+                    { name: 'Papas Grandes', price: 2500 }
+                ]
+            },
+            'patacones': {
+                name: 'Patacones',
+                desc: 'Patacones crujientes adicionales.',
+                image: 'patacones.jpg',
+                variants: [
+                    { name: 'Patacones (10u)', price: 1100 },
+                    { name: 'Patacones (20u)', price: 1700 }
+                ]
+            }
+        };
 
         function addToOrder(name, price, btn) {
             if (order[name]) {
@@ -1284,14 +1529,110 @@
             }
             totalAmount += price;
 
-            // Actualizar badge visual
-            const badge = btn.parentElement.querySelector('.qty-badge');
-            if (badge) {
-                badge.innerText = order[name].qty;
-                badge.style.display = 'block';
+            if (btn) {
+                const badge = btn.parentElement.querySelector('.qty-badge');
+                if (badge) {
+                    badge.innerText = order[name].qty;
+                    badge.style.display = 'block';
+                }
             }
 
             updateCartUI();
+            refreshCategoryBadges();
+        }
+
+        let currentCategory = '';
+        let selectedOption = '';
+
+        function showOptions(cat) {
+            currentCategory = cat;
+            const data = productVariants[cat];
+
+            document.getElementById('option-title').innerText = data.name;
+            document.getElementById('option-desc').innerText = data.desc;
+            document.getElementById('option-img').src = data.image;
+
+            const extra = document.getElementById('extra-options');
+            const chips = document.getElementById('chips-container');
+            if (data.options) {
+                extra.style.display = 'block';
+                document.getElementById('extra-label').innerText = data.options.name;
+                chips.innerHTML = '';
+                data.options.values.forEach((val, index) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'option-chip' + (index === 0 ? ' selected' : '');
+                    if (index === 0) selectedOption = val;
+                    chip.innerText = val;
+                    chip.onclick = () => {
+                        document.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+                        chip.classList.add('selected');
+                        selectedOption = val;
+                    };
+                    chips.appendChild(chip);
+                });
+            } else {
+                extra.style.display = 'none';
+                selectedOption = '';
+            }
+
+            const container = document.getElementById('variants-container');
+            container.innerHTML = '';
+            data.variants.forEach(v => {
+                container.innerHTML += `
+                    <div class="variant-item">
+                        <div>
+                            <div style="font-weight: bold; color: white;">${v.name}</div>
+                            ${v.desc ? `<div style="font-size: 0.75rem; opacity: 0.7;">${v.desc}</div>` : ''}
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span style="color: var(--brand-gold); font-weight: bold;">₡${v.price.toLocaleString()}</span>
+                            <button class="add-btn" onclick="addVariantToOrder('${v.name}', ${v.price})">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('options-modal').style.display = 'flex';
+        }
+
+        function closeOptionsModal() {
+            document.getElementById('options-modal').style.display = 'none';
+        }
+
+        function addVariantToOrder(name, price) {
+            let finalName = name;
+            if (selectedOption) {
+                finalName += ` (${selectedOption})`;
+            }
+            addToOrder(finalName, price);
+
+            // Efecto visual de agregado
+            const btn = event.target;
+            btn.innerText = '✓';
+            btn.style.background = '#25D366';
+            btn.style.color = 'white';
+            setTimeout(() => {
+                btn.innerText = '+';
+                btn.style.background = 'var(--brand-gold)';
+                btn.style.color = 'var(--dark)';
+            }, 500);
+        }
+
+        function refreshCategoryBadges() {
+            for (let cat in productVariants) {
+                let total = 0;
+                const variants = productVariants[cat].variants.map(v => v.name);
+                for (let itemName in order) {
+                    if (variants.some(v => itemName.startsWith(v))) {
+                        total += order[itemName].qty;
+                    }
+                }
+                const badge = document.getElementById(`badge-${cat}`);
+                if (badge) {
+                    badge.innerText = total;
+                    badge.style.display = total > 0 ? 'block' : 'none';
+                }
+            }
         }
 
         function updateCartUI() {
@@ -1363,30 +1704,28 @@
         function clearOrder() {
             order = {};
             totalAmount = 0;
+            customerName = '';
+            gpsLocation = '';
+            // Resetear UI del modal de info
+            document.getElementById('customer-name').value = '';
+            document.getElementById('btn-location').style.display = 'flex';
+            document.getElementById('btn-location').innerText = '📍 COMPARTIR MI UBICACIÓN GPS';
+            document.getElementById('location-status').style.display = 'none';
+
             refreshMenuBadges();
             updateCartUI();
             closeOrderSummary();
         }
 
         function refreshMenuBadges() {
-            // Resetear todos
-            document.querySelectorAll('.qty-badge').forEach(b => {
-                b.style.display = 'none';
-                b.innerText = '0';
-            });
+            // Resetear todos los badges de categorías
+            refreshCategoryBadges();
 
-            // Aplicar actuales
-            // Buscamos los botones que corresponden a los items en el order
-            document.querySelectorAll('.add-btn').forEach(btn => {
-                const onclick = btn.getAttribute('onclick');
-                for (let name in order) {
-                    if (onclick.includes(`'${name}'`)) {
-                        const badge = btn.parentElement.querySelector('.qty-badge');
-                        if (badge) {
-                            badge.innerText = order[name].qty;
-                            badge.style.display = 'block';
-                        }
-                    }
+            // Resetear badges individuales si los hubiera (opcional)
+            document.querySelectorAll('.qty-badge').forEach(b => {
+                if (!b.id.startsWith('badge-')) {
+                    b.style.display = 'none';
+                    b.innerText = '0';
                 }
             });
         }
@@ -1400,6 +1739,29 @@
         }
 
         let selectedType = '';
+        let customerName = '';
+        let gpsLocation = '';
+
+        function getCurrentLocation() {
+            const btn = document.getElementById('btn-location');
+            const status = document.getElementById('location-status');
+            btn.innerText = '⌛ Obteniendo ubicación...';
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    gpsLocation = `https://www.google.com/maps?q=${lat},${lng}`;
+                    btn.style.display = 'none';
+                    status.style.display = 'block';
+                }, function (error) {
+                    alert('No se pudo obtener la ubicación. Por favor escribe tu dirección manualmente.');
+                    btn.innerText = '📍 COMPARTIR MI UBICACIÓN GPS';
+                });
+            } else {
+                alert('Tu navegador no soporta geolocalización.');
+            }
+        }
 
         function showOrderTypeModal() {
             document.getElementById('type-modal').style.display = 'flex';
@@ -1412,13 +1774,46 @@
         function selectOrderType(type) {
             selectedType = type;
             closeTypeModal();
+
+            // Mostrar modal de info
+            const addressContainer = document.getElementById('address-container');
+            if (type === 'Retirar en Local') {
+                addressContainer.style.display = 'none';
+            } else {
+                addressContainer.style.display = 'block';
+            }
+            document.getElementById('info-modal').style.display = 'flex';
+        }
+
+        function confirmInfo() {
+            customerName = document.getElementById('customer-name').value;
+
+            if (!customerName) {
+                alert('Por favor ingresa tu nombre');
+                return;
+            }
+
+            if (selectedType !== 'Retirar en Local' && !gpsLocation) {
+                alert('Por favor comparte tu ubicación GPS para el envío');
+                return;
+            }
+
+            closeInfoModal();
             showBranchModal();
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').style.display = 'none';
         }
 
         function sendToWhatsApp(branch) {
             let message = "*¡Hola Bitos Twelve! Quisiera realizar un pedido:*\n\n";
-            message += `*MODALIDAD:* ${selectedType}\n\n`;
-            message += `*DETALLE DEL PEDIDO:*\n`;
+            message += `*CLIENTE:* ${customerName}\n`;
+            message += `*MODALIDAD:* ${selectedType}\n`;
+            if (gpsLocation) {
+                message += `*UBICACIÓN GPS:* ${gpsLocation}\n`;
+            }
+            message += `\n*DETALLE DEL PEDIDO:*\n`;
 
             for (let name in order) {
                 message += `• ${order[name].qty}x ${name} - ₡${(order[name].price * order[name].qty).toLocaleString()}\n`;
@@ -1432,7 +1827,46 @@
             closeBranchModal();
         }
 
+        function toggleWhatsAppMenu(event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById('whatsapp-menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('whatsapp-menu');
+            const floatBtn = document.querySelector('.whatsapp-float');
+            if (menu && menu.style.display === 'flex') {
+                if (!menu.contains(event.target) && !floatBtn.contains(event.target)) {
+                    menu.style.display = 'none';
+                }
+            }
+        });
+
     </script>
+    <!-- Floating WhatsApp -->
+    <div class="whatsapp-float" onclick="toggleWhatsAppMenu(event)">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="30">
+    </div>
+
+    <div id="whatsapp-menu" class="whatsapp-menu">
+        <div
+            style="color: var(--brand-gold); font-size: 0.75rem; text-align: center; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold;">
+            Contactar Sucursal</div>
+        <a href="https://wa.me/50670698429" target="_blank" class="whatsapp-option">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+            <span>SANTO DOMINGO</span>
+        </a>
+        <a href="https://wa.me/50670030697" target="_blank" class="whatsapp-option">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+            <span>HEREDIA CENTRO</span>
+        </a>
+    </div>
 </body>
 
 </html>
