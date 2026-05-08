@@ -1172,33 +1172,40 @@
         </section>
 
         <section class="intro-box accordion" onclick="toggleAccordion(this)">
-            <h2 class="accordion-header">Horario: Santo Domingo <span class="accordion-icon">▼</span></h2>
+            <h2 class="accordion-header">Nuestros Horarios <span class="accordion-icon">▼</span></h2>
             <div class="accordion-content">
-                <div class="horario-grid">
-                    <div class="day-card">
-                        <span class="day-label">Lunes a Sábado</span>
-                        <span class="day-time">12:00pm - 10:30pm</span>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    
+                    <!-- Horario Santo Domingo -->
+                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">SANTO DOMINGO</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div>
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes a Sábado</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 10:30pm</span>
+                            </div>
+                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Domingos</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 9:00pm</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="day-card">
-                        <span class="day-label">Domingos</span>
-                        <span class="day-time">12:00pm - 9:00pm</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="intro-box accordion" onclick="toggleAccordion(this)">
-            <h2 class="accordion-header">Horario: Heredia Centro <span class="accordion-icon">▼</span></h2>
-            <div class="accordion-content">
-                <div class="horario-grid">
-                    <div class="day-card">
-                        <span class="day-label">Lunes a Sábado</span>
-                        <span class="day-time">11:30am - 10:30pm</span>
+                    <!-- Horario Heredia Centro -->
+                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">HEREDIA CENTRO</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div>
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes a Sábado</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">11:30am - 10:30pm</span>
+                            </div>
+                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Domingos</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">5:00pm - 9:00pm</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="day-card">
-                        <span class="day-label">Domingos</span>
-                        <span class="day-time">5:00pm - 9:00pm</span>
-                    </div>
+
                 </div>
             </div>
         </section>
