@@ -9,7 +9,7 @@
     <!-- OPEN GRAPH META TAGS PARA PREVISUALIZACIÓN DE ENLACES -->
     <meta property="og:title" content="BITOS Food Point | Sabor Caribeño">
     <meta property="og:description" content="Auténtico sabor caribeño en Bitos Twelve. ¡Explora nuestro menú y haz tu pedido!">
-    <meta property="og:image" content="https://bitostwelve.com/BTS12.png">
+    <meta property="og:image" content="https://bitostwelve.com/BTSLOGO.png">
     <meta property="og:url" content="https://bitostwelve.com/">
     <meta property="og:type" content="website">
 
@@ -100,7 +100,7 @@
 
         .loader-logo {
             position: relative;
-            width: 180px;
+            width: 320px;
             height: auto;
             margin-bottom: 25px;
             filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.4));
@@ -108,6 +108,18 @@
             animation: logoFloat 4s infinite ease-in-out;
             background: none !important;
             border: none !important;
+            transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .loader-logo.shrink {
+            width: 180px;
+        }
+
+
+
+        @keyframes zoomInViewer {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         @keyframes logoFloat {
@@ -915,6 +927,157 @@
             width: 20px;
             height: 20px;
         }
+
+        .sabor-animado {
+            display: inline-block;
+            animation: floatSabor 3.5s ease-in-out infinite;
+        }
+
+        @keyframes floatSabor {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-4px) scale(1.02);
+                text-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
+            }
+        }
+        /* Delivery Options Styles */
+        .delivery-option {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(15, 15, 15, 0.7);
+            border: 2px solid transparent;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .delivery-option::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .delivery-option:hover::before {
+            transform: translateX(100%);
+        }
+
+        .delivery-option:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .opt-retirar {
+            border-color: var(--brand-red);
+            background: linear-gradient(145deg, rgba(15,15,15,0.9), rgba(255, 0, 0, 0.05));
+            animation: retirarPulse 3s infinite alternate 1.5s;
+        }
+        .opt-retirar:hover {
+            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.25);
+            border-color: var(--brand-red);
+        }
+        .opt-retirar .icon-box {
+            background: rgba(255, 0, 0, 0.15);
+            color: var(--brand-red);
+            border: 1px solid var(--brand-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .opt-express {
+            border-color: var(--brand-gold);
+            background: linear-gradient(145deg, rgba(15,15,15,0.9), rgba(197, 160, 89, 0.05));
+            animation: expressPulse 3s infinite alternate;
+        }
+        .opt-express:hover {
+            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.25);
+            border-color: var(--brand-gold);
+        }
+        .opt-express .icon-box {
+            background: rgba(197, 160, 89, 0.2);
+            color: var(--brand-gold);
+            border: 1px solid var(--brand-gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .opt-uber {
+            border-color: #333333;
+            background: linear-gradient(145deg, rgba(5,5,5,0.9), rgba(30, 30, 30, 0.5));
+        }
+        .opt-uber:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border-color: #555555;
+            background: rgba(0,0,0,0.9);
+        }
+        .opt-uber .icon-box {
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .delivery-option:hover .icon-box {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .delivery-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .delivery-info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Oswald', sans-serif;
+        }
+        .delivery-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.3;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .opt-retirar h3 { color: var(--brand-red); }
+        .opt-express h3 { color: var(--brand-gold); }
+        .opt-uber h3 { color: #ffffff; }
+
+        @keyframes expressPulse {
+            0% { box-shadow: 0 0 10px rgba(197, 160, 89, 0.05); }
+            100% { box-shadow: 0 0 25px rgba(197, 160, 89, 0.25); }
+        }
+        
+        @keyframes retirarPulse {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.05); }
+            100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.25); }
+        }
+
     </style>
 </head>
 
@@ -1157,10 +1320,11 @@
             </a>
         </header>
 
+
         <section class="intro-box">
             <h2>¡Un viaje a Limón en cada bocado!</h2>
             <p>En <strong>Bitos Twelve</strong>, elevamos el concepto del pollo frito. Cada bocado es un tributo a nuestras raíces, elaborado con el profesionalismo que usted merece y el sabor que solo el Caribe puede ofrecer.</p>
-            <p style="color: var(--brand-gold); font-weight: bold; margin-top: 15px; letter-spacing: 2px;">Sabor que enamora • Pura esencia caribeña🌴🍗✨</p>
+            <p class="sabor-animado" style="color: var(--brand-gold); font-weight: bold; margin-top: 15px; letter-spacing: 2px;">Sabor que enamora • Pura esencia caribeña🌴🍗✨</p>
         </section>
 
         <section class="intro-box"
@@ -1295,23 +1459,40 @@
     </div>
 
     <div id="type-modal" class="branch-modal">
-        <h2 style="color: white; margin-bottom: 30px; text-align: center;">¿Cómo prefieres tu pedido?</h2>
-        <div class="branch-option" onclick="selectOrderType('Retirar en Local')">
-            <h3 style="margin: 0; color: var(--brand-gold);">🛍️ RETIRAR EN LOCAL</h3>
-            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Yo paso por él</p>
+        <h2 style="color: white; margin-bottom: 35px; text-align: center; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.5);">¿Cómo prefieres tu pedido?</h2>
+        
+        <div class="delivery-option opt-retirar" onclick="selectOrderType('Retirar en Local')">
+            <div class="icon-box">
+                <img src="BTSLOGO.png" alt="Retirar en Local" style="width: 45px; height: 45px; object-fit: contain;">
+            </div>
+            <div class="delivery-info">
+                <h3>Retirar en Local</h3>
+                <p>Yo paso por él a la sucursal más cercana</p>
+            </div>
         </div>
-        <div class="branch-option" onclick="selectOrderType('Express del Local')">
-            <h3 style="margin: 0; color: #25D366;">🛵 EXPRESS DEL LOCAL</h3>
-            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Servicio a domicilio de Bitos Twelve</p>
+
+        <div class="delivery-option opt-express" onclick="selectOrderType('Express del Local')">
+            <div class="icon-box">
+                <img src="BTSLOGO.png" alt="Express Bitos" style="width: 45px; height: 45px; object-fit: contain;">
+            </div>
+            <div class="delivery-info">
+                <h3>Express Bitos</h3>
+                <p>Servicio a domicilio directo de Bitos</p>
+            </div>
         </div>
-        <div class="branch-option" onclick="selectOrderType('Uber Flash')">
-            <h3
-                style="margin: 0; color: #000; background: #fff; display: inline-block; padding: 2px 10px; border-radius: 4px; font-weight: bold;">
-                Uber Flash</h3>
-            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Enviar por Uber Flash</p>
+
+        <div class="delivery-option opt-uber" onclick="selectOrderType('Uber Flash')">
+            <div class="icon-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="Uber Flash" style="width: 45px; object-fit: contain; filter: invert(1);">
+            </div>
+            <div class="delivery-info">
+                <h3>Uber Flash</h3>
+                <p>Enviar mediante plataforma de terceros</p>
+            </div>
         </div>
+
         <button onclick="closeTypeModal()"
-            style="background: none; border: 1px solid white; color: white; padding: 10px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px;">Cancelar</button>
+            style="background: transparent; border: 2px solid rgba(255,255,255,0.3); color: white; padding: 12px 40px; border-radius: 50px; cursor: pointer; margin-top: 25px; font-weight: bold; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px;" onmouseover="this.style.background='white'; this.style.color='black';" onmouseout="this.style.background='transparent'; this.style.color='white';">Cancelar</button>
     </div>
 
     <div id="summary-modal" class="branch-modal" style="justify-content: flex-start; padding-top: 60px;">
@@ -1400,8 +1581,14 @@
             </div>
 
             <button onclick="closeOptionsModal()"
-                style="width: 100%; background: none; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px; border-radius: 50px; cursor: pointer; margin-top: 10px; font-size: 0.9rem;">Cerrar</button>
+                style="width: 100%; background: linear-gradient(45deg, var(--brand-gold), #e8c988); border: none; color: var(--dark); padding: 15px; border-radius: 50px; cursor: pointer; margin-top: 15px; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4); transition: 0.3s;">Aceptar</button>
         </div>
+    </div>
+
+    <!-- MODAL VISOR DE IMÁGENES -->
+    <div id="image-viewer-modal" class="branch-modal" style="background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px;" onclick="this.style.display='none'">
+        <span style="position: absolute; top: 20px; right: 20px; color: white; font-size: 3rem; cursor: pointer; text-shadow: 0 0 10px rgba(0,0,0,0.8); line-height: 1;">&times;</span>
+        <img id="viewer-img" src="" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); animation: zoomInViewer 0.3s ease-out;">
     </div>
 
     <script>
@@ -1440,9 +1627,10 @@
             const counterElement = document.getElementById('loading-counter');
             const enterBtn = document.querySelector('.enter-btn');
             const vibraText = document.querySelector('.vibra-text');
+            const loaderLogo = document.querySelector('.loader-logo');
 
             const interval = setInterval(() => {
-                count += Math.floor(Math.random() * 15) + 5;
+                count += Math.floor(Math.random() * 6) + 2;
                 if (count >= 100) {
                     count = 100;
                     clearInterval(interval);
@@ -1455,9 +1643,23 @@
                         vibraText.style.display = 'block';
                         vibraText.style.animation = 'slideInUp 0.6s ease forwards';
                     }
+                    if (loaderLogo) {
+                        loaderLogo.classList.add('shrink');
+                    }
                 }
                 if (counterElement) counterElement.innerText = count + '%';
-            }, 120);
+            }, 180);
+
+            // Funcionalidad para ver imágenes en grande
+            const foodImages = document.querySelectorAll('#seccion-menu img, #option-img');
+            foodImages.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.getElementById('viewer-img').src = img.src;
+                    document.getElementById('image-viewer-modal').style.display = 'flex';
+                });
+            });
         });
 
         // --- LÓGICA DE PEDIDOS ---
