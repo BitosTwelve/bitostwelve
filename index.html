@@ -1345,7 +1345,7 @@
         <section class="intro-box accordion" onclick="toggleAccordion(this)">
             <h2 class="accordion-header">Nuestros Horarios <span class="accordion-icon">▼</span></h2>
             <div class="accordion-content">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 15px; margin-top: 15px;">
                     
                     <!-- Horario Santo Domingo -->
                     <div class="day-card" style="display: block; padding: 15px; text-align: center;">
@@ -1377,6 +1377,21 @@
                         </div>
                     </div>
 
+                    <!-- Horario Lindora -->
+                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">LINDORA</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div>
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Martes a Domingo</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 10:00pm</span>
+                            </div>
+                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
+                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes</span>
+                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px; color: var(--brand-red);">Cerrado</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -1384,7 +1399,7 @@
         <section class="intro-box accordion" onclick="toggleAccordion(this)">
             <h2 class="accordion-header">¿Dónde estamos? <span class="accordion-icon">▼</span></h2>
             <div class="accordion-content">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 15px;">
 
                     <!-- Sucursal Santo Domingo -->
                     <div class="map-container" style="margin-top: 0;">
@@ -1406,6 +1421,19 @@
                                 style="height: 150px;">
                             <span class="btn-map-overlay"
                                 style="font-size: 0.8rem; padding: 8px; background: var(--brand-gold); color: var(--dark);">📍
+                                VER MAPA</span>
+                        </a>
+                    </div>
+
+                    <!-- Sucursal Lindora -->
+                    <div class="map-container" style="margin-top: 0;">
+                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">LINDORA</p>
+                        <a href="https://maps.app.goo.gl/dKC3i2u8dxB2skCN6" target="_blank"
+                            style="text-decoration: none;">
+                            <img src="ubi3.png" alt="Ubicación Bitos Lindora" class="map-img"
+                                style="height: 150px;">
+                            <span class="btn-map-overlay"
+                                style="font-size: 0.8rem; padding: 8px; background: var(--brand-red); color: white;">📍
                                 VER MAPA</span>
                         </a>
                     </div>
@@ -1523,6 +1551,10 @@
         <div class="branch-option" onclick="sendToWhatsApp('Heredia')">
             <h3 style="margin: 0; color: #25D366;">HEREDIA CENTRO</h3>
             <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Ir a WhatsApp Heredia</p>
+        </div>
+        <div class="branch-option" onclick="sendToWhatsApp('Lindora')">
+            <h3 style="margin: 0; color: var(--brand-red);">LINDORA</h3>
+            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Ir a WhatsApp Lindora</p>
         </div>
         <button onclick="closeBranchModal()"
             style="background: none; border: 1px solid white; color: white; padding: 10px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px;">Cancelar</button>
@@ -2037,7 +2069,14 @@
             message += `\n*TOTAL A PAGAR: ₡${totalAmount.toLocaleString()}*`;
 
             const encodedMessage = encodeURIComponent(message);
-            const phone = branch === 'SD' ? '50670698429' : '50670030697';
+            let phone = '';
+            if (branch === 'SD') {
+                phone = '50670698429';
+            } else if (branch === 'Heredia') {
+                phone = '50670030697';
+            } else if (branch === 'Lindora') {
+                phone = '50670298533';
+            }
 
             window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
             closeBranchModal();
@@ -2081,6 +2120,10 @@
         <a href="https://wa.me/50670030697" target="_blank" class="whatsapp-option">
             <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
             <span>HEREDIA CENTRO</span>
+        </a>
+        <a href="https://wa.me/50670298533" target="_blank" class="whatsapp-option">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+            <span>LINDORA</span>
         </a>
     </div>
 </body>
