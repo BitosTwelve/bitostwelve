@@ -1913,11 +1913,16 @@
                     <div class="summary-item">
                         <div>
                             <div style="font-weight: bold; font-size: 0.9rem;">${name}</div>
-                            <div style="font-size: 0.8rem; opacity: 0.7;">${item.qty}x ₡${item.price.toLocaleString()}</div>
+                            <div style="font-size: 0.8rem; opacity: 0.7;">₡${item.price.toLocaleString()} c/u</div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="font-weight: bold;">₡${(item.price * item.qty).toLocaleString()}</div>
-                            <button class="btn-remove" onclick="removeFromOrder('${name}')">&times;</button>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 20px; border: 1px solid rgba(197,160,89,0.3);">
+                                <button onclick="decreaseQty('${name}')" style="background: none; border: none; color: white; cursor: pointer; font-weight: bold; font-size: 1.1rem; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent;">-</button>
+                                <span style="font-weight: bold; font-size: 0.9rem; min-width: 15px; text-align: center;">${item.qty}</span>
+                                <button onclick="increaseQty('${name}')" style="background: none; border: none; color: var(--brand-gold); cursor: pointer; font-weight: bold; font-size: 1.1rem; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent;">+</button>
+                            </div>
+                            <div style="font-weight: bold; min-width: 70px; text-align: right;">₡${(item.price * item.qty).toLocaleString()}</div>
+                            <button onclick="deleteFromOrder('${name}')" style="background: rgba(255, 0, 0, 0.15); border: 1px solid var(--brand-red); color: var(--brand-red); width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; margin-left: 5px; outline: none; -webkit-tap-highlight-color: transparent;" title="Eliminar artículo">&times;</button>
                         </div>
                     </div>
                 `;
@@ -1935,18 +1940,41 @@
             document.getElementById('summary-modal').style.display = 'none';
         }
 
-        function removeFromOrder(name) {
-            totalAmount -= order[name].price;
-            order[name].qty--;
+        function decreaseQty(name) {
+            if (order[name]) {
+                totalAmount -= order[name].price;
+                order[name].qty--;
 
-            if (order[name].qty <= 0) {
-                delete order[name];
+                if (order[name].qty <= 0) {
+                    delete order[name];
+                }
+
+                refreshMenuBadges();
+                updateCartUI();
+                showOrderSummary();
             }
+        }
 
-            // Actualizar badges en el menú
-            refreshMenuBadges();
-            updateCartUI();
-            showOrderSummary(); // Refrescar modal
+        function increaseQty(name) {
+            if (order[name]) {
+                totalAmount += order[name].price;
+                order[name].qty++;
+
+                refreshMenuBadges();
+                updateCartUI();
+                showOrderSummary();
+            }
+        }
+
+        function deleteFromOrder(name) {
+            if (order[name]) {
+                totalAmount -= order[name].price * order[name].qty;
+                delete order[name];
+
+                refreshMenuBadges();
+                updateCartUI();
+                showOrderSummary();
+            }
         }
 
         function clearOrder() {
@@ -1969,13 +1997,29 @@
             // Resetear todos los badges de categorías
             refreshCategoryBadges();
 
-            // Resetear badges individuales si los hubiera (opcional)
+            // Resetear badges individuales si los hubiera
             document.querySelectorAll('.qty-badge').forEach(b => {
                 if (!b.id.startsWith('badge-')) {
-                    b.style.display = 'none';
                     b.innerText = '0';
+                    b.style.display = 'none';
                 }
             });
+
+            // Sincronizar badges individuales con el carrito
+            for (let name in order) {
+                const qty = order[name].qty;
+                if (qty > 0) {
+                    // Buscar botones de agregar que contengan el nombre del producto en su onclick
+                    const buttons = document.querySelectorAll(`button[onclick*="'${name}'"]`);
+                    buttons.forEach(btn => {
+                        const badge = btn.parentElement.querySelector('.qty-badge');
+                        if (badge) {
+                            badge.innerText = qty;
+                            badge.style.display = 'block';
+                        }
+                    });
+                }
+            }
         }
 
         function showBranchModal() {
