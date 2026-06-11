@@ -261,7 +261,7 @@
         }
 
         .accordion.active .accordion-content {
-            max-height: 800px;
+            max-height: 2500px;
             opacity: 1;
             margin-top: 25px;
         }
@@ -1078,6 +1078,195 @@
             100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.25); }
         }
 
+        /* --- NUEVO SISTEMA DE SUCURSALES --- */
+        .sucursales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .sucursal-card {
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .sucursal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--brand-red), var(--brand-gold));
+            opacity: 0.8;
+        }
+
+        .sucursal-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-gold);
+            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.15);
+        }
+
+        .sucursal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sucursal-title {
+            margin: 0 !important;
+            font-size: 1.25rem !important;
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        .sucursal-status {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .status-activa {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25d366;
+            border: 1px solid rgba(37, 211, 102, 0.4);
+        }
+
+        .status-proximamente {
+            background: rgba(255, 0, 0, 0.15);
+            color: var(--brand-red);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .sucursal-map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sucursal-map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .sucursal-map-wrapper:hover .sucursal-map-img {
+            transform: scale(1.1);
+        }
+
+        .sucursal-map-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .sucursal-map-wrapper:hover .sucursal-map-overlay {
+            opacity: 1;
+        }
+
+        .sucursal-map-overlay span {
+            background: var(--brand-red);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sucursal-hours {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .hours-days {
+            color: var(--brand-gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hours-time {
+            color: var(--white);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .sucursal-btn-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #1ebea5, #25d366);
+            color: black !important;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        }
+
+        .sucursal-btn-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .wa-icon {
+            width: 16px;
+            height: 16px;
+            filter: brightness(0); /* Make black */
+        }
+
     </style>
 </head>
 
@@ -1343,99 +1532,182 @@
         </section>
 
         <section class="intro-box accordion" onclick="toggleAccordion(this)">
-            <h2 class="accordion-header">Nuestros Horarios <span class="accordion-icon">▼</span></h2>
+            <h2 class="accordion-header">Nuestras Sucursales <span class="accordion-icon">▼</span></h2>
             <div class="accordion-content">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 15px; margin-top: 15px;">
+                <p style="font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-bottom: 20px; text-align: center;">Horarios y ubicaciones de nuestras sedes. ¡Haz clic en el mapa para ver la ruta!</p>
+                <div class="sucursales-grid">
                     
-                    <!-- Horario Santo Domingo -->
-                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">SANTO DOMINGO</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div>
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes a Sábado</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 10:30pm</span>
+                    <!-- Sucursal: Santo Domingo -->
+                    <div class="sucursal-card">
+                        <div class="sucursal-header">
+                            <h3 class="sucursal-title">Santo Domingo</h3>
+                            <span class="sucursal-status status-activa">Abierto</span>
+                        </div>
+                        
+                        <div class="sucursal-map-wrapper">
+                            <a href="https://maps.app.goo.gl/zNzok8ZMiZJy3Ez38" target="_blank">
+                                <img src="UBI.jpg" alt="Ubicación Bitos Santo Domingo" class="sucursal-map-img">
+                                <div class="sucursal-map-overlay">
+                                    <span>📍 VER MAPA</span>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="sucursal-hours">
+                            <div class="hours-row">
+                                <span class="hours-days">Lunes a Sábado</span>
+                                <span class="hours-time">12:00pm - 10:30pm</span>
                             </div>
-                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Domingos</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 9:00pm</span>
+                            <div class="hours-row">
+                                <span class="hours-days">Domingos</span>
+                                <span class="hours-time">12:00pm - 9:00pm</span>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Horario Heredia Centro -->
-                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">HEREDIA CENTRO</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div>
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes a Sábado</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">11:30am - 10:30pm</span>
-                            </div>
-                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Domingos</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">5:00pm - 9:00pm</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Horario Lindora -->
-                    <div class="day-card" style="display: block; padding: 15px; text-align: center;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-top: 0; margin-bottom: 12px; font-weight: bold;">LINDORA</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div>
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Martes a Domingo</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px;">12:00pm - 10:00pm</span>
-                            </div>
-                            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px;">
-                                <span class="day-label" style="display: block; font-size: 0.7rem;">Lunes</span>
-                                <span class="day-time" style="display: block; font-size: 0.9rem; margin-top: 2px; color: var(--brand-red);">Cerrado</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="intro-box accordion" onclick="toggleAccordion(this)">
-            <h2 class="accordion-header">¿Dónde estamos? <span class="accordion-icon">▼</span></h2>
-            <div class="accordion-content">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 15px;">
-
-                    <!-- Sucursal Santo Domingo -->
-                    <div class="map-container" style="margin-top: 0;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">SANTO DOMINGO</p>
-                        <a href="https://maps.app.goo.gl/zNzok8ZMiZJy3Ez38" target="_blank"
-                            style="text-decoration: none;">
-                            <img src="UBI.jpg" alt="Ubicación Bitos Santo Domingo" class="map-img"
-                                style="height: 150px;">
-                            <span class="btn-map-overlay" style="font-size: 0.8rem; padding: 8px;">📍 VER MAPA</span>
+                        
+                        <a href="https://wa.me/50670698429" target="_blank" class="sucursal-btn-wa">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon" class="wa-icon">
+                            WhatsApp Santo Domingo
                         </a>
                     </div>
 
-                    <!-- Sucursal Heredia Centro -->
-                    <div class="map-container" style="margin-top: 0;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">HEREDIA CENTRO</p>
-                        <a href="https://maps.app.goo.gl/JNomQJDRXz8ikCQG6" target="_blank"
-                            style="text-decoration: none;">
-                            <img src="ubi2.png" alt="Ubicación Bitos Heredia Centro" class="map-img"
-                                style="height: 150px;">
-                            <span class="btn-map-overlay"
-                                style="font-size: 0.8rem; padding: 8px; background: var(--brand-gold); color: var(--dark);">📍
-                                VER MAPA</span>
+                    <!-- Sucursal: Heredia Centro -->
+                    <div class="sucursal-card">
+                        <div class="sucursal-header">
+                            <h3 class="sucursal-title">Heredia Centro</h3>
+                            <span class="sucursal-status status-activa">Abierto</span>
+                        </div>
+                        
+                        <div class="sucursal-map-wrapper">
+                            <a href="https://maps.app.goo.gl/JNomQJDRXz8ikCQG6" target="_blank">
+                                <img src="ubi2.png" alt="Ubicación Bitos Heredia Centro" class="sucursal-map-img">
+                                <div class="sucursal-map-overlay">
+                                    <span>📍 VER MAPA</span>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="sucursal-hours">
+                            <div class="hours-row">
+                                <span class="hours-days">Lunes a Sábado</span>
+                                <span class="hours-time">11:30am - 10:30pm</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-days">Domingos</span>
+                                <span class="hours-time">5:00pm - 9:00pm</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/50670030697" target="_blank" class="sucursal-btn-wa">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon" class="wa-icon">
+                            WhatsApp Heredia Centro
                         </a>
                     </div>
 
-                    <!-- Sucursal Lindora -->
-                    <div class="map-container" style="margin-top: 0;">
-                        <p style="font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 8px;">LINDORA</p>
-                        <a href="https://maps.app.goo.gl/dKC3i2u8dxB2skCN6" target="_blank"
-                            style="text-decoration: none;">
-                            <img src="ubi3.png" alt="Ubicación Bitos Lindora" class="map-img"
-                                style="height: 150px;">
-                            <span class="btn-map-overlay"
-                                style="font-size: 0.8rem; padding: 8px; background: var(--brand-red); color: white;">📍
-                                VER MAPA</span>
+                    <!-- Sucursal: Lindora -->
+                    <div class="sucursal-card">
+                        <div class="sucursal-header">
+                            <h3 class="sucursal-title">Lindora</h3>
+                            <span class="sucursal-status status-activa">Abierto</span>
+                        </div>
+                        
+                        <div class="sucursal-map-wrapper">
+                            <a href="https://maps.app.goo.gl/dKC3i2u8dxB2skCN6" target="_blank">
+                                <img src="ubi3.png" alt="Ubicación Bitos Lindora" class="sucursal-map-img">
+                                <div class="sucursal-map-overlay">
+                                    <span>📍 VER MAPA</span>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="sucursal-hours">
+                            <div class="hours-row">
+                                <span class="hours-days">Martes a Domingo</span>
+                                <span class="hours-time">12:00pm - 10:00pm</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-days">Lunes</span>
+                                <span class="hours-time" style="color: var(--brand-red);">Cerrado</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/50670298533" target="_blank" class="sucursal-btn-wa">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon" class="wa-icon">
+                            WhatsApp Lindora
                         </a>
+                    </div>
+
+                    <!-- Sucursal: San Pedro -->
+                    <div class="sucursal-card">
+                        <div class="sucursal-header">
+                            <h3 class="sucursal-title">San Pedro</h3>
+                            <span class="sucursal-status status-activa">Abierto</span>
+                        </div>
+                        
+                        <div class="sucursal-map-wrapper">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Bitos+Twelve+San+Pedro" target="_blank">
+                                <img src="ubi4.png" alt="Ubicación Bitos San Pedro" class="sucursal-map-img">
+                                <div class="sucursal-map-overlay">
+                                    <span>📍 VER MAPA</span>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="sucursal-hours">
+                            <div class="hours-row">
+                                <span class="hours-days">Lunes a Sábado</span>
+                                <span class="hours-time">12:00pm - 10:30pm</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-days">Domingos</span>
+                                <span class="hours-time">12:00pm - 9:00pm</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/50685922323" target="_blank" class="sucursal-btn-wa">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon" class="wa-icon">
+                            WhatsApp San Pedro
+                        </a>
+                    </div>
+
+                    <!-- Sucursal: Barrio Escalante (Próximamente) -->
+                    <div class="sucursal-card" style="border-color: rgba(255, 0, 0, 0.2); opacity: 0.85;">
+                        <div class="sucursal-header">
+                            <h3 class="sucursal-title" style="color: var(--brand-red);">Barrio Escalante</h3>
+                            <span class="sucursal-status status-proximamente">Próximamente</span>
+                        </div>
+                        
+                        <div class="sucursal-map-wrapper" style="cursor: default;">
+                            <div style="width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; position: relative;">
+                                <img src="BTSLOGO.png" alt="Logo Bitos Barrio Escalante" style="height: 85px; width: auto; opacity: 0.15; filter: blur(1px); object-fit: contain;">
+                                <div style="position: absolute; color: var(--brand-gold); font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 2px; font-weight: bold; text-shadow: 0 0 10px rgba(197, 160, 89, 0.6); animation: pulse 2s infinite;">CUBRIENDO LA ZONA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="sucursal-hours" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 58px; gap: 5px;">
+                            <span style="color: var(--brand-gold); font-weight: 800; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase;">APERTURA EN:</span>
+                            <div id="escalante-countdown" style="display: flex; gap: 6px; font-family: 'Oswald', sans-serif;">
+                                <div style="display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.25); min-width: 38px;">
+                                    <span id="countdown-days" style="color: white; font-size: 1rem; font-weight: bold;">00</span>
+                                    <span style="color: var(--brand-gold); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Días</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.25); min-width: 38px;">
+                                    <span id="countdown-hours" style="color: white; font-size: 1rem; font-weight: bold;">00</span>
+                                    <span style="color: var(--brand-gold); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Horas</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.25); min-width: 38px;">
+                                    <span id="countdown-minutes" style="color: white; font-size: 1rem; font-weight: bold;">00</span>
+                                    <span style="color: var(--brand-gold); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Min</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.25); min-width: 38px;">
+                                    <span id="countdown-seconds" style="color: var(--brand-red); font-size: 1rem; font-weight: bold; animation: pulse 1s infinite;">00</span>
+                                    <span style="color: var(--brand-gold); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Seg</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sucursal-btn-wa" style="background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.3); box-shadow: none; cursor: not-allowed; pointer-events: none;">
+                            No disponible aún
+                        </div>
                     </div>
 
                 </div>
@@ -1555,6 +1827,10 @@
         <div class="branch-option" onclick="sendToWhatsApp('Lindora')">
             <h3 style="margin: 0; color: var(--brand-red);">LINDORA</h3>
             <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Ir a WhatsApp Lindora</p>
+        </div>
+        <div class="branch-option" onclick="sendToWhatsApp('SanPedro')">
+            <h3 style="margin: 0; color: var(--brand-gold);">SAN PEDRO</h3>
+            <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.8;">Ir a WhatsApp San Pedro</p>
         </div>
         <button onclick="closeBranchModal()"
             style="background: none; border: 1px solid white; color: white; padding: 10px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px;">Cancelar</button>
@@ -1681,6 +1957,41 @@
                 }
                 if (counterElement) counterElement.innerText = count + '%';
             }, 180);
+
+            // Cuenta regresiva Barrio Escalante
+            const targetDate = new Date("2026-06-13T12:00:00-06:00").getTime();
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+                    clearInterval(countdownInterval);
+                    const container = document.getElementById('escalante-countdown');
+                    if (container) {
+                        container.innerHTML = '<span style="color: #25d366; font-weight: bold; font-size: 1.1rem; letter-spacing: 1px; animation: pulse 2s infinite;">¡YA ABIERTO! 🥳🍗</span>';
+                    }
+                    return;
+                }
+
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                const dEl = document.getElementById('countdown-days');
+                const hEl = document.getElementById('countdown-hours');
+                const mEl = document.getElementById('countdown-minutes');
+                const sEl = document.getElementById('countdown-seconds');
+
+                if (dEl) dEl.innerText = days.toString().padStart(2, '0');
+                if (hEl) hEl.innerText = hours.toString().padStart(2, '0');
+                if (mEl) mEl.innerText = minutes.toString().padStart(2, '0');
+                if (sEl) sEl.innerText = seconds.toString().padStart(2, '0');
+            }
+
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
 
             // Funcionalidad para ver imágenes en grande
             const foodImages = document.querySelectorAll('#seccion-menu img, #option-img');
@@ -2120,6 +2431,8 @@
                 phone = '50670030697';
             } else if (branch === 'Lindora') {
                 phone = '50670298533';
+            } else if (branch === 'SanPedro') {
+                phone = '50685922323';
             }
 
             window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
@@ -2168,6 +2481,10 @@
         <a href="https://wa.me/50670298533" target="_blank" class="whatsapp-option">
             <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
             <span>LINDORA</span>
+        </a>
+        <a href="https://wa.me/50685922323" target="_blank" class="whatsapp-option">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+            <span>SAN PEDRO</span>
         </a>
     </div>
 </body>
