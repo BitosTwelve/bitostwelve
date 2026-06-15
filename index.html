@@ -1546,7 +1546,7 @@
             <h3>Combos Bitos</h3>
 
             <div class="category-card" onclick="showOptions('bitos')">
-                <img src="Bitos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                <img src="Bitoos.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
                 <div style="flex-grow: 1;">
                     <div style="color: white; font-weight: bold; font-size: 1.1rem;">Combos de Bitos</div>
                     <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">6, 8, 12, 16 y 22
@@ -1618,6 +1618,29 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SECCIÓN: PIEZAS DE POLLO -->
+            <div>
+                <h3>Piezas de Pollo</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="category-card" onclick="showOptions('piezas')">
+                        <img src="piezas.png"
+                            style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                        <div style="flex-grow: 1;">
+                            <div style="color: white; font-weight: bold; font-size: 1.1rem;">Piezas de Pollo</div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Cuarto y
+                                Muslo.</p>
+                        </div>
+                        <div style="position: relative;">
+                            <div class="qty-badge" id="badge-piezas">0</div>
+                            <div
+                                style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                +</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ESPECIALIDADES -->
             <div>
                 <h3>ESPECIALIDADES</h3>
@@ -1644,7 +1667,7 @@
                     <!-- Nachibitos -->
                     <div
                         style="background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(197, 160, 89, 0.2); border-left: 6px solid var(--brand-gold); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
-                        <img src="Nachibitos.jpeg" alt="Nachibitos"
+                        <img src="NACHII.jpeg" alt="Nachibitos"
                             style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: rgba(255, 255, 255, 0.1);"
                             loading="lazy">
                         <div style="flex-grow: 1;">
@@ -1663,6 +1686,33 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SECCIÓN: RICE AND BEANS -->
+            <div>
+                <h3>Rice & Beans</h3>
+                <span
+                    style="color: var(--brand-gold); font-size: 0.85rem; display: block; margin-top: -8px; margin-bottom: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                    ⚠️ Solo sábados y domingos por el momento
+                </span>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="category-card" onclick="showOptions('ricebeans')">
+                        <img src="RABPOLLO.jpeg"
+                            style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                        <div style="flex-grow: 1;">
+                            <div style="color: white; font-weight: bold; font-size: 1.1rem;">Rice & Beans Caribeño</div>
+                            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">Pollo,
+                                camarones jumbo, filet de pescado o rabo.</p>
+                        </div>
+                        <div style="position: relative;">
+                            <div class="qty-badge" id="badge-ricebeans">0</div>
+                            <div
+                                style="background: var(--brand-red); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                +</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECCIÓN: ACOMPAÑAMIENTOS -->
             <h3>Acompañamientos</h3>
             <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -1694,6 +1744,21 @@
                         <div class="qty-badge" id="badge-patacones">0</div>
                         <div
                             style="background: var(--brand-red); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            +</div>
+                    </div>
+                </div>
+
+                <!-- Yuca -->
+                <div class="category-card" onclick="showOptions('yuca')">
+                    <img src="yuca.png" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                    <div style="flex-grow: 1;">
+                        <div style="color: white; font-weight: bold; font-size: 1.1rem;">Yuca Frita</div>
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 4px;">10 unidades.</p>
+                    </div>
+                    <div style="position: relative;">
+                        <div class="qty-badge" id="badge-yuca">0</div>
+                        <div
+                            style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
                             +</div>
                     </div>
                 </div>
@@ -2487,7 +2552,7 @@
             'bitos': {
                 name: 'Combos Bitos',
                 desc: 'Incluye patacones, salsas de la casa y chilera.',
-                image: 'Bitos.jpeg',
+                image: 'Bitoos.jpeg',
                 variants: [
                     { name: '6 Bitos', price: 2500, desc: 'Incluye 4 patacones' },
                     { name: '8 Bitos', price: 3000, desc: 'Incluye 4 patacones' },
@@ -2550,6 +2615,33 @@
                 variants: [
                     { name: 'Patacones (10u)', price: 1100 },
                     { name: 'Patacones (20u)', price: 1700 }
+                ]
+            },
+            'piezas': {
+                name: 'Piezas de Pollo',
+                desc: 'Piezas de pollo frito crujiente estilo caribeño.',
+                image: 'piezas.png',
+                variants: [
+                    { name: 'Cuarto y Muslo', price: 1450 }
+                ]
+            },
+            'ricebeans': {
+                name: 'Rice & Beans',
+                desc: 'Delicioso Rice & Beans caribeño. (Disponible solo sábados y domingos por el momento)',
+                image: 'RABPOLLO.jpeg',
+                variants: [
+                    { name: 'Rice and Beans con Pollo', price: 6000 },
+                    { name: 'Rice and Beans con Camarones Jumbo', price: 9000 },
+                    { name: 'Rice and Beans con Filet de Pescado', price: 5500 },
+                    { name: 'Rice and Beans con Rabo (Oxtail)', price: 7500 }
+                ]
+            },
+            'yuca': {
+                name: 'Yuca Frita',
+                desc: 'Deliciosa yuca frita dorada y crujiente.',
+                image: 'yuca.png',
+                variants: [
+                    { name: '10 Yucas', price: 800 }
                 ]
             }
         };
