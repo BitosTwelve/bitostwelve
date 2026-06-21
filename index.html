@@ -1542,6 +1542,38 @@
 
         <div style="max-width: 600px; margin: 0 auto;">
 
+            <!-- SECCIÓN: MARTES DE PROMO -->
+            <div id="martes-promo-section" style="margin-bottom: 30px;">
+                <h3 style="color: var(--brand-gold);">Martes de Promo</h3>
+                <div id="martes-promo-card" class="category-card" onclick="showOptions('martes_promo')"
+                    style="border: 2px solid var(--brand-gold); background: rgba(197, 160, 89, 0.08); box-shadow: 0 0 15px rgba(197, 160, 89, 0.15); transition: all 0.3s ease;">
+                    <img src="MPROMO.jpeg" style="width: 75px; height: 75px; border-radius: 10px; object-fit: cover;">
+                    <div style="flex-grow: 1;">
+                        <div
+                            style="color: white; font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 5px rgba(197, 160, 89, 0.3); display: flex; align-items: center; flex-wrap: wrap;">
+                            <span>¡Martes de Promo! 🍗</span>
+                            <span id="promo-lock-icon"
+                                style="display: none; font-size: 0.95rem; color: #ff3333; margin-left: 6px;">🔒
+                                (Bloqueado)</span>
+                        </div>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.85); font-size: 0.85rem; margin-top: 4px; line-height: 1.4;">
+                            Alitas (10u/15u) & Muslitos (6u/12u).
+                        </p>
+                        <span
+                            style="color: var(--brand-gold); font-size: 0.72rem; font-weight: bold; display: block; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Hasta agotar existencias (Máx 2 personas)
+                        </span>
+                    </div>
+                    <div style="position: relative;">
+                        <div class="qty-badge" id="badge-martes_promo">0</div>
+                        <div id="martes-promo-action-btn"
+                            style="background: var(--brand-gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease;">
+                            +</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECCIÓN: COMBOS TRADICIONALES -->
             <h3>Combos Bitos</h3>
 
@@ -1952,7 +1984,7 @@
                             </div>
                             <div class="hours-row" data-days="0">
                                 <span class="hours-days">Domingos</span>
-                                <span class="hours-time">5:00pm - 9:00pm</span>
+                                <span class="hours-time">12:00pm - 9:30pm</span>
                             </div>
                         </div>
 
@@ -2096,9 +2128,13 @@
                                 </svg>
                                 Horario
                             </div>
-                            <div class="hours-row" data-days="0,1,2,3,4,5,6">
-                                <span class="hours-days">Lunes a Domingo</span>
-                                <span class="hours-time">12:00pm - 10:30pm</span>
+                            <div class="hours-row" data-days="0,1,2,3,4">
+                                <span class="hours-days">Domingo a Jueves</span>
+                                <span class="hours-time">12:30md - 9:30pm</span>
+                            </div>
+                            <div class="hours-row" data-days="5,6">
+                                <span class="hours-days">Viernes y Sábado</span>
+                                <span class="hours-time">1:30pm - 11:30pm</span>
                             </div>
                         </div>
 
@@ -2312,6 +2348,12 @@
     </div>
 
     <script>
+        function getCostaRicaTime() {
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            return new Date(utc + (3600000 * -6));
+        }
+
         function toggleAccordion(element) {
             element.classList.toggle('active');
         }
@@ -2409,21 +2451,15 @@
                     6: { open: '12:00', close: '22:00' }
                 },
                 escalante: {
-                    0: { open: '12:00', close: '22:30' },
-                    1: { open: '12:00', close: '22:30' },
-                    2: { open: '12:00', close: '22:30' },
-                    3: { open: '12:00', close: '22:30' },
-                    4: { open: '12:00', close: '22:30' },
-                    5: { open: '12:00', close: '22:30' },
-                    6: { open: '12:00', close: '22:30' }
+                    0: { open: '12:30', close: '21:30' },
+                    1: { open: '12:30', close: '21:30' },
+                    2: { open: '12:30', close: '21:30' },
+                    3: { open: '12:30', close: '21:30' },
+                    4: { open: '12:30', close: '21:30' },
+                    5: { open: '13:30', close: '23:30' },
+                    6: { open: '13:30', close: '23:30' }
                 }
             };
-
-            function getCostaRicaTime() {
-                const d = new Date();
-                const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-                return new Date(utc + (3600000 * -6));
-            }
 
             function formatTime(timeStr) {
                 const [h, m] = timeStr.split(':').map(Number);
@@ -2532,6 +2568,41 @@
             updateSucursalesStatus();
             setInterval(updateSucursalesStatus, 30000);
 
+            // Control de visibilidad para la promoción de los martes (siempre visible, bloqueado si no es martes)
+            function checkTuesdayPromoVisibility() {
+                const crTime = getCostaRicaTime();
+                const isTuesday = crTime.getDay() === 2;
+
+                const lockIcon = document.getElementById('promo-lock-icon');
+                const actionBtn = document.getElementById('martes-promo-action-btn');
+                const promoCard = document.getElementById('martes-promo-card');
+
+                if (isTuesday) {
+                    if (lockIcon) lockIcon.style.display = 'none';
+                    if (actionBtn) {
+                        actionBtn.innerHTML = '+';
+                        actionBtn.style.background = 'var(--brand-gold)';
+                        actionBtn.style.color = 'var(--dark)';
+                    }
+                    if (promoCard) {
+                        promoCard.style.borderColor = 'var(--brand-gold)';
+                        promoCard.style.opacity = '1';
+                    }
+                } else {
+                    if (lockIcon) lockIcon.style.display = 'inline-block';
+                    if (actionBtn) {
+                        actionBtn.innerHTML = '🔒';
+                        actionBtn.style.background = 'rgba(255, 0, 0, 0.15)';
+                        actionBtn.style.color = '#ff3333';
+                    }
+                    if (promoCard) {
+                        promoCard.style.borderColor = 'rgba(255, 0, 0, 0.3)';
+                        promoCard.style.opacity = '0.85';
+                    }
+                }
+            }
+            checkTuesdayPromoVisibility();
+
             // Funcionalidad para ver imágenes en grande
             const foodImages = document.querySelectorAll('#seccion-menu img, #option-img');
             foodImages.forEach(img => {
@@ -2549,6 +2620,21 @@
         let totalAmount = 0;
 
         const productVariants = {
+            'martes_promo': {
+                name: 'Martes de Promo',
+                desc: 'Solo los martes. Válido hasta agotar existencias (Máximo 2 personas).',
+                image: 'MPROMO.jpeg',
+                variants: [
+                    { name: 'Martes Promo: Alitas (10u)', price: 2800 },
+                    { name: 'Martes Promo: Alitas (15u)', price: 4000 },
+                    { name: 'Martes Promo: Muslitos (6u)', price: 2500 },
+                    { name: 'Martes Promo: Muslitos (12u)', price: 3500 }
+                ],
+                options: {
+                    name: 'Salsa',
+                    values: ['BBQ', 'Búfalo', 'Natural']
+                }
+            },
             'bitos': {
                 name: 'Combos Bitos',
                 desc: 'Incluye patacones, salsas de la casa y chilera.',
@@ -2630,10 +2716,10 @@
                 desc: 'Delicioso Rice & Beans caribeño. (Disponible solo sábados y domingos por el momento)',
                 image: 'RABPOLLO.jpeg',
                 variants: [
-                    { name: 'Rice and Beans con Pollo', price: 6000 },
-                    { name: 'Rice and Beans con Camarones Jumbo', price: 9000 },
-                    { name: 'Rice and Beans con Filet de Pescado', price: 5500 },
-                    { name: 'Rice and Beans con Rabo (Oxtail)', price: 7500 }
+                    { name: 'Rice and Beans con Pollo', price: 6000, image: 'RABPOLLO.jpeg' },
+                    { name: 'Rice and Beans con Camarones Jumbo', price: 9000, image: 'RABCAMA.jpeg' },
+                    { name: 'Rice and Beans con Filet de Pescado', price: 5500, image: 'RABCAMA.jpeg' },
+                    { name: 'Rice and Beans con Rabo (Oxtail)', price: 7500, image: 'RABPOLLO.jpeg' }
                 ]
             },
             'yuca': {
@@ -2702,16 +2788,28 @@
 
             const container = document.getElementById('variants-container');
             container.innerHTML = '';
+
+            const crTime = getCostaRicaTime();
+            const isTuesday = crTime.getDay() === 2;
+            const isLockedPromo = (cat === 'martes_promo' && !isTuesday);
+
             data.variants.forEach(v => {
+                const actionHtml = isLockedPromo
+                    ? `<span style="color: #ff3333; font-size: 0.8rem; font-weight: bold; border: 1px solid rgba(255, 51, 51, 0.4); background: rgba(255, 51, 51, 0.08); padding: 5px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;">🔒 Solo Martes</span>`
+                    : `<button class="add-btn" onclick="addVariantToOrder('${v.name}', ${v.price})">+</button>`;
+
                 container.innerHTML += `
-                    <div class="variant-item">
-                        <div>
-                            <div style="font-weight: bold; color: white;">${v.name}</div>
-                            ${v.desc ? `<div style="font-size: 0.75rem; opacity: 0.7;">${v.desc}</div>` : ''}
+                    <div class="variant-item" style="display: flex; justify-content: space-between; align-items: center; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            ${v.image ? `<img src="${v.image}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(197, 160, 89, 0.3);">` : ''}
+                            <div>
+                                <div style="font-weight: bold; color: white;">${v.name}</div>
+                                ${v.desc ? `<div style="font-size: 0.75rem; opacity: 0.7;">${v.desc}</div>` : ''}
+                            </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 15px;">
                             <span style="color: var(--brand-gold); font-weight: bold;">₡${v.price.toLocaleString()}</span>
-                            <button class="add-btn" onclick="addVariantToOrder('${v.name}', ${v.price})">+</button>
+                            ${actionHtml}
                         </div>
                     </div>
                 `;
